@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>example app</title>
+</head>
+<body>
+<script src='js/vendor/jquery/jquery.min.js'></script>
+<script src='js/vendor/handlebars/handlebars.js'></script>
+<script src='js/vendor/ember/ember.min.js'></script>
+<script src='js/app.js'></script>
+
+<script type="text/x-handlebars" data-template-name="application">
+{{outlet}}
+</script>
+
+<script type="text/x-handlebars" data-template-name="people">
+<table>
+{{#each person in controller}}
+<tr>
+  <td>{{person.name}}</td>
+</tr>
+{{/each}}
+</table>
+</script>
+
+</body>
+</html>

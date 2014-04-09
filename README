@@ -1,0 +1,9 @@
+A simple ember.js app used to build your own EAK-lite
+
+
+To run the ember.js locally
+
+    npm install
+    ./bin/server
+
+    visit http://localhost:3000 to see the running app
