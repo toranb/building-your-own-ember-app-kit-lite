@@ -1,6 +1,9 @@
 {
   "dependencies": {
-    "bower": "*"
+    "bower": "*",
+    "grunt": "*",
+    "grunt-cli": "*",
+    "grunt-contrib-concat": "*"
   },
   "scripts": {
     "postinstall": "bower install"
