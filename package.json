@@ -4,6 +4,7 @@
     "grunt": "*",
     "grunt-cli": "*",
     "grunt-contrib-concat": "*",
+    "grunt-es6-module-transpiler": "*",
     "grunt-ember-template-compiler": "1.5.0"
   },
   "scripts": {

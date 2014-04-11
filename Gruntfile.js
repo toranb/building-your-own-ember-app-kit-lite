@@ -1,15 +1,32 @@
 module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-ember-template-compiler');
+  grunt.loadNpmTasks('grunt-es6-module-transpiler');
 
   grunt.initConfig({
+    transpile: {
+      app: {
+        type: 'amd',
+        moduleName: function(path) {
+          return 'example/' + path;
+        },
+        files: [{
+          expand: true,
+          cwd: 'js/app/',
+          src: '**/*.js',
+          dest: 'js/dist/transpiled/app/'
+        }]
+      }
+    },
     concat: {
       dist: {
           src: [
             'js/vendor/jquery/jquery.min.js',
             'js/vendor/handlebars/handlebars.js',
             'js/vendor/ember/ember.min.js',
-            'js/app.js',
+            'js/lib/loader.js',
+            'js/lib/ember-resolver.js',
+            'js/dist/transpiled/app/**/*.js',
             'js/dist/tmpl.min.js'],
           dest: 'js/dist/deps.min.js'
       }
@@ -28,5 +45,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.task.registerTask('local', ['emberhandlebars', 'concat:dist']);
+  grunt.task.registerTask('local', ['emberhandlebars', 'transpile:app', 'concat:dist']);
 }
