@@ -1,14 +1,32 @@
 A simple ember.js app used to build your own EAK-lite
 
 
-To run the ember.js locally
+To run the ember.js application locally
 
     npm install
 
     export PATH="./node_modules/.bin:$PATH"
 
-    grunt local
+    grunt local (includes a watch task)
 
-    ./bin/server
+    ./bin/server (open in another tab as grunt local is blocking)
 
     visit http://localhost:3000 to see the running app
+
+
+To run the qunit tests
+
+    npm install
+
+    export PATH="./node_modules/.bin:$PATH"
+
+    grunt test
+
+
+To deploy the web application
+
+    npm install
+
+    export PATH="./node_modules/.bin:$PATH"
+
+    grunt deploy
