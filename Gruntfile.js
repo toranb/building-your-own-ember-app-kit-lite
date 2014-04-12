@@ -5,8 +5,25 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-testem');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-hashres');
 
   grunt.initConfig({
+    uglify: {
+        dist: {
+            src: 'js/dist/deps.min.js',
+            dest: 'js/dist/deps.min.js',
+        },
+    },
+    hashres: {
+      options: {
+        renameFiles: true
+      },
+      prod: {
+        src: ['js/dist/deps.min.js'],
+        dest: 'index.html'
+      }
+    },
     testem: {
       basic: {
         src: [
@@ -105,4 +122,5 @@ module.exports = function(grunt) {
   grunt.task.registerTask('dev', ['jshint', 'emberhandlebars', 'transpile:app', 'concat:dist']);
   grunt.task.registerTask('local', ['dev', 'watch']);
   grunt.task.registerTask('test', ['jshint', 'emberhandlebars', 'transpile:app', 'transpile:tests', 'concat:test', 'testem:ci:basic']);
+  grunt.task.registerTask('deploy', ['dev', 'uglify:dist', 'hashres']);
 };
