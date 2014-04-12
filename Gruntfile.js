@@ -4,8 +4,22 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-es6-module-transpiler');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-testem');
 
   grunt.initConfig({
+    testem: {
+      basic: {
+        src: [
+          "js/dist/deps.min.js"
+        ],
+        options: {
+          parallel: 2,
+          framework: "qunit",
+          launch_in_dev: ["PhantomJS"],
+          launch_in_ci: ["PhantomJS"]
+        }
+      }
+    },
     watch: {
       options: {
         spawn: false,
@@ -23,6 +37,18 @@ module.exports = function(grunt) {
       }
     },
     transpile: {
+      tests: {
+        type: 'amd',
+        moduleName: function(path) {
+          return 'example/tests/' + path;
+        },
+        files: [{
+          expand: true,
+          cwd: 'js/tests/',
+          src: '**/*.js',
+          dest: 'js/dist/transpiled/tests/'
+        }]
+      },
       app: {
         type: 'amd',
         moduleName: function(path) {
@@ -47,6 +73,19 @@ module.exports = function(grunt) {
             'js/dist/transpiled/app/**/*.js',
             'js/dist/tmpl.min.js'],
           dest: 'js/dist/deps.min.js'
+      },
+      test: {
+          src: [
+            'js/vendor/jquery/jquery.min.js',
+            'js/vendor/handlebars/handlebars.js',
+            'js/vendor/ember/ember.js',
+            'js/lib/loader.js',
+            'js/lib/ember-resolver.js',
+            'js/dist/transpiled/app/**/*.js',
+            'js/dist/tmpl.min.js',
+            'js/dist/transpiled/tests/**/*.js',
+            'js/lib/test-loader.js'],
+          dest: 'js/dist/deps.min.js'
       }
     },
     emberhandlebars: {
@@ -65,4 +104,5 @@ module.exports = function(grunt) {
 
   grunt.task.registerTask('dev', ['jshint', 'emberhandlebars', 'transpile:app', 'concat:dist']);
   grunt.task.registerTask('local', ['dev', 'watch']);
+  grunt.task.registerTask('test', ['jshint', 'emberhandlebars', 'transpile:app', 'transpile:tests', 'concat:test', 'testem:ci:basic']);
 };

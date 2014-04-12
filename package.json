@@ -3,9 +3,11 @@
     "bower": "*",
     "grunt": "*",
     "grunt-cli": "*",
+    "phantomjs": "*",
     "grunt-contrib-watch": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-concat": "*",
+    "grunt-contrib-testem": "*",
     "grunt-es6-module-transpiler": "*",
     "grunt-ember-template-compiler": "1.5.0"
   },
