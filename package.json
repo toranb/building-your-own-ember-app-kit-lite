@@ -3,6 +3,7 @@
     "bower": "*",
     "grunt": "*",
     "grunt-cli": "*",
+    "grunt-contrib-watch": "*",
     "grunt-contrib-jshint": "*",
     "grunt-contrib-concat": "*",
     "grunt-es6-module-transpiler": "*",

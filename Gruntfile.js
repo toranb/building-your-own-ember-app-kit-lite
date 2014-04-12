@@ -3,8 +3,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-ember-template-compiler');
   grunt.loadNpmTasks('grunt-es6-module-transpiler');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
   grunt.initConfig({
+    watch: {
+      options: {
+        spawn: false,
+        livereload: true
+      },
+      sources: {
+        files: ['js/templates/**/*.handlebars', 'js/app/**/*.js'],
+        tasks: ['dev']
+      }
+    },
     jshint: {
       all: ['js/app/**/*.js'],
       options : {
@@ -52,5 +63,6 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.task.registerTask('local', ['jshint', 'emberhandlebars', 'transpile:app', 'concat:dist']);
+  grunt.task.registerTask('dev', ['jshint', 'emberhandlebars', 'transpile:app', 'concat:dist']);
+  grunt.task.registerTask('local', ['dev', 'watch']);
 };
