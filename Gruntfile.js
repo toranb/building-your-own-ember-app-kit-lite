@@ -2,8 +2,15 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-ember-template-compiler');
   grunt.loadNpmTasks('grunt-es6-module-transpiler');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
 
   grunt.initConfig({
+    jshint: {
+      all: ['js/app/**/*.js'],
+      options : {
+        esnext : true
+      }
+    },
     transpile: {
       app: {
         type: 'amd',
@@ -45,5 +52,5 @@ module.exports = function(grunt) {
     }
   });
 
-  grunt.task.registerTask('local', ['emberhandlebars', 'transpile:app', 'concat:dist']);
-}
+  grunt.task.registerTask('local', ['jshint', 'emberhandlebars', 'transpile:app', 'concat:dist']);
+};
