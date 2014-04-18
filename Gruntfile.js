@@ -4,7 +4,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-es6-module-transpiler');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-testem');
+  grunt.loadNpmTasks('grunt-testem');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-hashres');
 
@@ -25,16 +25,11 @@ module.exports = function(grunt) {
       }
     },
     testem: {
-      basic: {
-        src: [
-          "js/dist/deps.min.js"
-        ],
-        options: {
-          parallel: 2,
-          framework: "qunit",
-          launch_in_dev: ["PhantomJS"],
-          launch_in_ci: ["PhantomJS"]
-        }
+      options: {
+        launch_in_dev : ['PhantomJS']
+      },
+      main: {
+        src: ['testem.json']
       }
     },
     watch: {
@@ -121,6 +116,6 @@ module.exports = function(grunt) {
 
   grunt.task.registerTask('dev', ['jshint', 'emberhandlebars', 'transpile:app', 'concat:dist']);
   grunt.task.registerTask('local', ['dev', 'watch']);
-  grunt.task.registerTask('test', ['jshint', 'emberhandlebars', 'transpile:app', 'transpile:tests', 'concat:test', 'testem:ci:basic']);
+  grunt.task.registerTask('test', ['jshint', 'emberhandlebars', 'transpile:app', 'transpile:tests', 'concat:test', 'testem:main']);
   grunt.task.registerTask('deploy', ['dev', 'uglify:dist', 'hashres']);
 };
